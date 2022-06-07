@@ -1,13 +1,13 @@
 import CategoriesRepository from '../../repositories/CategoriesRepository';
 import CreateCategoryController from './CreateCategoryController';
-import CreateCategoryService from './CreateCategoryService';
+import CreateCategoryUseCase from './CreateCategoryUseCase';
 
 const categoriesRepository = CategoriesRepository.getInstance();
 
-const createCategoryService = new CreateCategoryService(categoriesRepository);
+const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
 
 const createCategoryController = new CreateCategoryController(
-  createCategoryService
+  createCategoryUseCase
 );
 
 export default createCategoryController;

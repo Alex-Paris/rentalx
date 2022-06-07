@@ -1,7 +1,7 @@
 import Category from '../../model/Category';
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
-class ListCategoriesService {
+class ListCategoriesUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
   execute(): Category[] {
@@ -11,4 +11,4 @@ class ListCategoriesService {
   }
 }
 
-export default ListCategoriesService;
+export default ListCategoriesUseCase;
