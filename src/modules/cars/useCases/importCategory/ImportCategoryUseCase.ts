@@ -3,6 +3,7 @@ import { parse } from 'csv-parse';
 
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../../errors/AppError';
 
 interface IImportCategory {
   name: string;
@@ -21,7 +22,7 @@ class ImportCategoryUseCase {
   ): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
       if (!file) {
-        throw new Error('Not a valid file!');
+        throw new AppError('Not a valid file!');
       }
 
       const stream = fs.createReadStream(file.path);
