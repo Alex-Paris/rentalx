@@ -11,9 +11,11 @@ class UsersRepository implements IUsersRepository {
     this.repository = getRepository(User);
   }
 
-  findByName(name: string): Promise<User | undefined> {
-    throw new Error('Method not implemented.');
+  async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.repository.findOne({ email });
+    return user;
   }
+
   list(): Promise<User[]> {
     throw new Error('Method not implemented.');
   }
