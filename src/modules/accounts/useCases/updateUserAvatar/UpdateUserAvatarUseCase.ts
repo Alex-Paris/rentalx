@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { deleteFile } from '../../../../utils/file';
-import { AppError } from '../../../../errors/AppError';
+import { deleteFile } from '@utils/file';
+import { AppError } from '@errors/AppError';
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 
 interface IRequest {
