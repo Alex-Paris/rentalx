@@ -1,5 +1,5 @@
 import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO';
-import Rental from '../entities/Rentals';
+import Rental from '../infra/typeorm/entities/Rentals';
 
 interface IRentalsRepository {
   create(data: ICreateRentalDTO): Promise<Rental>;

@@ -1,5 +1,5 @@
 import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO';
-import Rental from '../../entities/Rentals';
+import Rental from '@modules/rentals/infra/typeorm/entities/Rentals';
 import IRentalsRepository from '../IRentalsRepository';
 
 class FakeRentalsRepository implements IRentalsRepository {
