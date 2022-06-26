@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
-import Rental from '@modules/rentals/infra/typeorm/entities/Rentals';
 import { AppError } from '@shared/errors/AppError';
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
 import IRentalsRepository from '@modules/rentals/repositories/IRentalsRepository';
+import Rental from '@modules/rentals/infra/typeorm/entities/Rentals';
 
 interface IRequest {
   user_id: string;
