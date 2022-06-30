@@ -4,8 +4,10 @@ import { AppError } from '@shared/errors/AppError';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import CreateRentalUseCase from './CreateRentalUseCase';
 import FakeRentalsRepository from '@modules/rentals/repositories/fakes/FakesRentalsRepository';
+import { FakeCarsRepository } from '@modules/cars/repositories/fakes/FakeCarsRepository';
 
 let createRentalUseCase: CreateRentalUseCase;
+let fakeCarsRepository: FakeCarsRepository;
 let fakeRentalsRepository: FakeRentalsRepository;
 let dayjsDateProvider: DayjsDateProvider;
 
@@ -14,10 +16,12 @@ describe('Create Rental', () => {
 
   beforeEach(() => {
     dayjsDateProvider = new DayjsDateProvider();
+    fakeCarsRepository = new FakeCarsRepository();
     fakeRentalsRepository = new FakeRentalsRepository();
     createRentalUseCase = new CreateRentalUseCase(
       fakeRentalsRepository,
-      dayjsDateProvider
+      dayjsDateProvider,
+      fakeCarsRepository
     );
   });
 

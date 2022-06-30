@@ -15,6 +15,11 @@ export class FakeCarsRepository implements ICarsRepository {
     return car;
   }
 
+  async updateAvailable(id: string, available: boolean): Promise<void> {
+    const carIndex = this.cars.findIndex(car => car.id === id);
+    this.cars[carIndex].available = available;
+  }
+
   async findByLicensePlate(license_plate: string): Promise<Car | undefined> {
     return this.cars.find(car => car.license_plate === license_plate);
   }
