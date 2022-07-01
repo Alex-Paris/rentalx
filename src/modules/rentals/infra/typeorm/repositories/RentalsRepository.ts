@@ -23,6 +23,13 @@ export class RentalsRepository implements IRentalsRepository {
     return rental;
   }
 
+  async findByUser(user_id: string): Promise<Rental[] | undefined> {
+    return await this.repository.find({
+      where: { user_id },
+      relations: ['car'],
+    });
+  }
+
   async findOpenRentalByCar(car_id: string): Promise<Rental | undefined> {
     return await this.repository.findOne({
       where: { car_id, end_data: null },
