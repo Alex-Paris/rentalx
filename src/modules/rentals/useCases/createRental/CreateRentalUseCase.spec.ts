@@ -5,16 +5,18 @@ import { DayjsDateProvider } from '@shared/container/providers/DateProvider/impl
 import CreateRentalUseCase from './CreateRentalUseCase';
 import FakeRentalsRepository from '@modules/rentals/repositories/fakes/FakesRentalsRepository';
 import { FakeCarsRepository } from '@modules/cars/repositories/fakes/FakeCarsRepository';
+import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 
 let createRentalUseCase: CreateRentalUseCase;
 let fakeCarsRepository: FakeCarsRepository;
 let fakeRentalsRepository: FakeRentalsRepository;
 let dayjsDateProvider: DayjsDateProvider;
+let car: Car;
 
 describe('Create Rental', () => {
   const dayAdd24Hours = dayjs().add(1, 'day').toDate();
 
-  beforeEach(() => {
+  beforeEach(async () => {
     dayjsDateProvider = new DayjsDateProvider();
     fakeCarsRepository = new FakeCarsRepository();
     fakeRentalsRepository = new FakeRentalsRepository();
@@ -23,11 +25,21 @@ describe('Create Rental', () => {
       dayjsDateProvider,
       fakeCarsRepository
     );
+
+    car = await fakeCarsRepository.create({
+      name: 'Car sample',
+      description: 'Car description sample',
+      daily_rate: 100,
+      license_plate: 'TEST',
+      fine_amount: 40,
+      category_id: '1234',
+      brand: 'brand',
+    });
   });
 
   it('should be able o create a new rental', async () => {
     const rental = await createRentalUseCase.execute({
-      car_id: '12345',
+      car_id: car.id,
       user_id: '4321',
       expected_return_date: dayAdd24Hours,
     });
@@ -39,13 +51,13 @@ describe('Create Rental', () => {
   it('should not be able o create a new rental if there is another opened rent to the same user', () => {
     expect(async () => {
       await createRentalUseCase.execute({
-        car_id: '12345',
+        car_id: car.id,
         user_id: '4321',
         expected_return_date: dayAdd24Hours,
       });
 
       await createRentalUseCase.execute({
-        car_id: '12345',
+        car_id: car.id,
         user_id: '4321',
         expected_return_date: dayAdd24Hours,
       });
@@ -55,13 +67,13 @@ describe('Create Rental', () => {
   it('should not be able o create a new rental if there is another opened rent to the same car', () => {
     expect(async () => {
       await createRentalUseCase.execute({
-        car_id: '12345',
+        car_id: car.id,
         user_id: '4321',
         expected_return_date: dayAdd24Hours,
       });
 
       await createRentalUseCase.execute({
-        car_id: '12345',
+        car_id: car.id,
         user_id: '1234',
         expected_return_date: dayAdd24Hours,
       });
@@ -71,7 +83,7 @@ describe('Create Rental', () => {
   it('should not be able o create a new rental with invalid return time', () => {
     expect(async () => {
       await createRentalUseCase.execute({
-        car_id: '12345',
+        car_id: car.id,
         user_id: '4321',
         expected_return_date: dayjs().toDate(),
       });
